@@ -3,123 +3,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>VSBot Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VSBot HQ Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.css" rel="stylesheet" />
+</head>
+<body class="bg-zinc-900 text-white min-h-screen">
+  <div class="max-w-6xl mx-auto p-4 space-y-6">
+    <header class="flex items-center justify-between border-b border-zinc-700 pb-2">
+      <h1 class="text-xl font-bold text-green-400">Robo HQ <span class="text-white">// OK</span></h1>
+      <div class="flex gap-2 items-center">
+        <label for="session" class="text-sm">Избери Сесия:</label>
+        <select id="session" class="bg-zinc-800 border border-zinc-600 rounded px-2 py-1 text-sm">
+          <option>--</option>
+        </select>
+        <button class="bg-blue-500 text-white px-2 py-1 text-sm rounded hover:bg-blue-600">
+          ➕ Нова Сесия
+        </button>
+      </div>
+    </header>
+
+    <section class="space-y-4">
+      <h2 class="font-semibold text-lg border-b border-zinc-700 pb-1">🔐 Bookie Accounts</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
+        <div class="bg-zinc-800 p-2 rounded">http://ms.sinblade.com — <span class="font-medium">vladi@vta.bg</span></div>
+        <div class="bg-zinc-800 p-2 rounded">https://williamhill.com — <span class="font-medium">petkokrasna</span></div>
+        <div class="bg-zinc-800 p-2 rounded">http://clean.sinblade.com — <span class="font-medium">master</span></div>
+        <div class="bg-zinc-800 p-2 rounded">https://betfred.com — <span class="font-medium">petkokrasna</span></div>
+        <div class="bg-zinc-800 p-2 rounded">https://sportingbet.com — <span class="font-medium">aditobomba@gmail.com</span></div>
+        <div class="bg-zinc-800 p-2 rounded">https://betuk.com — <span class="font-medium">mishmash282@gmail.com</span></div>
+        <div class="bg-zinc-800 p-2 rounded">https://betmgm.co.uk — <span class="font-medium">yaskokinga@gmail.com</span></div>
+        <div class="bg-zinc-800 p-2 rounded">https://betfred.com — <span class="font-medium">djoleto</span></div>
+        <div class="bg-zinc-800 p-2 rounded">https://888sport.com — <span class="font-medium">toshev93</span></div>
+        <div class="bg-zinc-800 p-2 rounded">https://williamhill.com — <span class="font-medium">bornigood</span></div>
+        <div class="bg-zinc-800 p-2 rounded">https://sportingbet.com — <span class="font-medium">djmindaka1@gmail.com</span></div>
+        <div class="bg-zinc-800 p-2 rounded">https://lottoland.co.uk — <span class="font-medium">radimaketa@gmail.com</span></div>
+      </div>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="font-semibold text-lg border-b border-zinc-700 pb-1">⚙️ Commands</h2>
+      <div class="flex flex-wrap gap-2 text-sm">
+        <button class="command">Sign Out</button>
+        <button class="command">Close All</button>
+        <button class="command">Open Extensions</button>
+        <button class="command">Close unused tabs</button>
+        <button class="command">Open Tabs</button>
+        <button class="command">Sign In</button>
+        <button class="command">Open Stadium</button>
+        <input type="text" placeholder="Bet" class="input" />
+        <input type="text" placeholder="Euro" class="input" />
+        <input type="text" placeholder="Dog #" class="input" />
+        <button class="command">Bet Confirm</button>
+      </div>
+    </section>
+
+    <section class="space-y-2">
+      <h2 class="font-semibold text-lg border-b border-zinc-700 pb-1">🎯 Find Event</h2>
+      <div class="grid md:grid-cols-4 gap-2">
+        <input type="text" id="event_name" placeholder="Event name" class="input" />
+        <input type="text" id="event_date" placeholder="Date (напр. 12.04.2025)" class="input" />
+        <input type="text" id="event_time" placeholder="Time (напр. 19:00)" class="input" />
+        <input type="text" id="event_sport" placeholder="Sport (напр. basketball)" class="input" />
+      </div>
+      <button id="btn_find_event" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-sm">🔎 Find Event</button>
+    </section>
+  </div>
+
   <style>
-    body {
-      background-color: black;
+    .command {
+      background-color: #3f3f46;
       color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+      padding: 4px 10px;
+      border-radius: 4px;
     }
-    #event-search {
-      padding: 10px;
-      background-color: #111;
-      border-bottom: 1px solid #444;
+    .command:hover {
+      background-color: #52525b;
     }
-    #event-search input, #event-search button {
-      padding: 5px;
-      margin: 4px;
-      font-size: 14px;
-    }
-    #vsrc_top_bar {
-      background-color: black;
-      color: gray;
-      padding: 10px;
-      text-align: center;
-      font-size: 16px;
-    }
-    .section {
-      border: 1px solid white;
-      margin: 10px;
-      padding: 10px;
-    }
-    .section-title {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .command-button {
-      background-color: #333;
-      color: white;
-      border: 1px solid white;
-      padding: 5px 10px;
-      margin: 3px;
-      cursor: pointer;
-    }
-    .command-button:hover {
-      background-color: white;
-      color: black;
+    .input {
+      background-color: #27272a;
+      border: 1px solid #3f3f46;
+      padding: 6px;
+      border-radius: 4px;
+      width: 100%;
     }
   </style>
-</head>
-<body>
 
-  <div id="event-search">
-    <input type="text" id="event_name" placeholder="Event name (напр. Efes)">
-    <input type="text" id="event_date" placeholder="Date (напр. 12.04.2025)">
-    <input type="text" id="event_time" placeholder="Time (напр. 19:00)">
-    <input type="text" id="event_sport" placeholder="Sport (напр. basketball)">
-    <button id="btn_find_event">🔎 Find Event</button>
-  </div>
-
-  <div id="vsrc_top_bar">
-    Server Status: <span style="color:red;font-weight:bold">Booting...</span><br>
-    Booting...
-  </div>
-
-  <div class="section">
-    <div class="section-title">Избери Сесия:</div>
-    <select><option>2024-03-24 Oxford 12:43</option></select>
-    <button class="command-button">➕ Нова Сесия</button>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Bookie Accounts</div>
-    <div>http://ms.sinblade.com — <span>vladi@vta.bg</span></div>
-    <div>https://williamhill.com — <span>petkokrasna</span></div>
-    <div>http://clean.sinblade.com — <span>master</span></div>
-    <div>https://www.betfred.com — <span>petkokrasna</span></div>
-    <div>https://sports.sportingbet.com/en/sports — <span>aditobomba@gmail.com</span></div>
-    <div>https://www.betuk.com — <span>mishmash282@gmail.com</span></div>
-    <div>https://www.betmgm.co.uk — <span>yaskokinga@gmail.com</span></div>
-    <div>https://www.betfred.com — <span>djoleto</span></div>
-    <div>https://www.888sport.com — <span>toshev93</span></div>
-    <div>https://www.williamhill.com — <span>bornigood</span></div>
-    <div>https://sports.sportingbet.com/en/sports — <span>djmindaka1@gmail.com</span></div>
-    <div>https://www.lottoland.co.uk — <span>radimaketa@gmail.com</span></div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Commands</div>
-    <button class="command-button">Sign Out</button>
-    <button class="command-button">Close All</button>
-    <button class="command-button">Open Extensions</button>
-    <button class="command-button">Close unused tabs</button>
-    <button class="command-button">Open Tabs</button>
-    <button class="command-button">Sign In</button>
-    <button class="command-button">Open Stadium</button>
-    <input type="text" placeholder="Bet">
-    <input type="text" placeholder="Euro">
-    <input type="text" placeholder="Dog #">
-    <button class="command-button">Bet Confirm</button>
-  </div>
-
-  <script>
-    document.getElementById('btn_find_event').addEventListener('click', () => {
-      const name = document.getElementById('event_name').value;
-      const date = document.getElementById('event_date').value;
-      const time = document.getElementById('event_time').value;
-      const sport = document.getElementById('event_sport').value;
-
-      window.postMessage({
-        action: 'find_event',
-        name,
-        date,
-        time,
-        sport
-      }, '*');
-    });
-  </script>
-
+  <script src="main.js"></script>
 </body>
 </html>
