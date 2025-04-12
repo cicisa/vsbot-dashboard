@@ -1,17 +1,125 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>VS Bot Dashboard</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="main.js"></script>
+  <meta charset="UTF-8" />
+  <title>VSBot Dashboard</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    #event-search {
+      padding: 10px;
+      background-color: #111;
+      border-bottom: 1px solid #444;
+    }
+    #event-search input, #event-search button {
+      padding: 5px;
+      margin: 4px;
+      font-size: 14px;
+    }
+    #vsrc_top_bar {
+      background-color: black;
+      color: gray;
+      padding: 10px;
+      text-align: center;
+      font-size: 16px;
+    }
+    .section {
+      border: 1px solid white;
+      margin: 10px;
+      padding: 10px;
+    }
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .command-button {
+      background-color: #333;
+      color: white;
+      border: 1px solid white;
+      padding: 5px 10px;
+      margin: 3px;
+      cursor: pointer;
+    }
+    .command-button:hover {
+      background-color: white;
+      color: black;
+    }
+  </style>
 </head>
-<body style="margin: 0; font-family: Arial, sans-serif;">
+<body>
 
-  <div style="text-align:center; background-color:black; color:gray; padding: 10px;">
-    Server Status: <span id="vsrc_server_status" style="color:red; font-weight:bold">Booting...</span>
-    <div id="vsrc_server_info">Booting...</div>
+  <div id="event-search">
+    <input type="text" id="event_name" placeholder="Event name (напр. Efes)">
+    <input type="text" id="event_date" placeholder="Date (напр. 12.04.2025)">
+    <input type="text" id="event_time" placeholder="Time (напр. 19:00)">
+    <input type="text" id="event_sport" placeholder="Sport (напр. basketball)">
+    <button id="btn_find_event">🔎 Find Event</button>
   </div>
+
+  <div id="vsrc_top_bar">
+    Server Status: <span style="color:red;font-weight:bold">Booting...</span><br>
+    Booting...
+  </div>
+
+  <div class="section">
+    <div class="section-title">Избери Сесия:</div>
+    <select><option>2024-03-24 Oxford 12:43</option></select>
+    <button class="command-button">➕ Нова Сесия</button>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Bookie Accounts</div>
+    <div>http://ms.sinblade.com — <span>vladi@vta.bg</span></div>
+    <div>https://williamhill.com — <span>petkokrasna</span></div>
+    <div>http://clean.sinblade.com — <span>master</span></div>
+    <div>https://www.betfred.com — <span>petkokrasna</span></div>
+    <div>https://sports.sportingbet.com/en/sports — <span>aditobomba@gmail.com</span></div>
+    <div>https://www.betuk.com — <span>mishmash282@gmail.com</span></div>
+    <div>https://www.betmgm.co.uk — <span>yaskokinga@gmail.com</span></div>
+    <div>https://www.betfred.com — <span>djoleto</span></div>
+    <div>https://www.888sport.com — <span>toshev93</span></div>
+    <div>https://www.williamhill.com — <span>bornigood</span></div>
+    <div>https://sports.sportingbet.com/en/sports — <span>djmindaka1@gmail.com</span></div>
+    <div>https://www.lottoland.co.uk — <span>radimaketa@gmail.com</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Commands</div>
+    <button class="command-button">Sign Out</button>
+    <button class="command-button">Close All</button>
+    <button class="command-button">Open Extensions</button>
+    <button class="command-button">Close unused tabs</button>
+    <button class="command-button">Open Tabs</button>
+    <button class="command-button">Sign In</button>
+    <button class="command-button">Open Stadium</button>
+    <input type="text" placeholder="Bet">
+    <input type="text" placeholder="Euro">
+    <input type="text" placeholder="Dog #">
+    <button class="command-button">Bet Confirm</button>
+  </div>
+
+  <script>
+    document.getElementById('btn_find_event').addEventListener('click', () => {
+      const name = document.getElementById('event_name').value;
+      const date = document.getElementById('event_date').value;
+      const time = document.getElementById('event_time').value;
+      const sport = document.getElementById('event_sport').value;
+
+      window.postMessage({
+        action: 'find_event',
+        name,
+        date,
+        time,
+        sport
+      }, '*');
+    });
+  </script>
 
 </body>
 </html>
